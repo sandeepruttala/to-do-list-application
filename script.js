@@ -1,13 +1,10 @@
-// DOM Elements
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTask');
 const taskList = document.getElementById('taskList');
 const filterTasks = document.getElementById('filterTasks');
 
-// Task array to store all tasks
 let tasks = [];
 
-// Add task
 const addTask = () => {
     const taskText = taskInput.value.trim();
     if (taskText) {
@@ -22,7 +19,6 @@ const addTask = () => {
     }
 };
 
-// Render tasks
 const renderTasks = () => {
     const filteredTasks = filterTasks.value === 'all' ? tasks :
         filterTasks.value === 'completed' ? tasks.filter(task => task.completed) :
@@ -41,13 +37,11 @@ const renderTasks = () => {
             </div>
         `;
 
-        // Complete task
         li.querySelector('.complete-btn').addEventListener('click', () => {
             task.completed = !task.completed;
             renderTasks();
         });
 
-        // Edit task
         li.querySelector('.edit-btn').addEventListener('click', () => {
             const newText = prompt('Edit task:', task.text);
             if (newText !== null) {
@@ -56,7 +50,6 @@ const renderTasks = () => {
             }
         });
 
-        // Delete task
         li.querySelector('.delete-btn').addEventListener('click', () => {
             tasks = tasks.filter(t => t.id !== task.id);
             renderTasks();
@@ -66,12 +59,10 @@ const renderTasks = () => {
     });
 };
 
-// Event listeners
 addTaskBtn.addEventListener('click', addTask);
 taskInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addTask();
 });
 filterTasks.addEventListener('change', renderTasks);
 
-// Initial render
 renderTasks();
